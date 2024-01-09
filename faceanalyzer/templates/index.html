@@ -1,101 +1,116 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <title>Face Analyzer</title>
 </head>
+
 <body>
-    <h1>Face Analyzer</h1>
+    <nav class='navbar navbar-light'></nav>
+    <div class="container">
+        <h1 class="text-center mb-4">Face Analyzer</h1>
 
-    <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="{{ form.image.id_for_label }}"></label>
+                {{ form.image }}
+                <input type="submit" value="Display Image" class="btn btn-outline-secondary">
+            </div>
+        </form>
 
-        {% csrf_token %}
-        {{ form.as_table }}
+        {% if upload %}
+        <div class="row mt-4">
+            <div class="col">
+                <img src="/media/ml_output/process.jpg" class="img-fluid" alt="">
+            </div>
 
+            <div class="col">
+                <table class = "table table-hover">
+                    <thead>
+                        <td>Face</td>
+                        {% for count in results.count %}
+                        <td>
+                            <img src="/media/ml_output/roi_{{count}}.jpg" class="img-fluid" alt="">
+                        </td>
+                        {% endfor %}
+                    </thead>
 
-        <input type="submit" value="upload">
+                    <tr>
+                        <td>Face Detection Score</td>
+                        {% for detect_score in results.face_detect_score %}
+                        <td>{{ detect_score }}</td>
+                        {% endfor %}
+                    </tr>
 
-    </form>
+                    <tr>
+                        <td>Emotion</td>
+                        {% for emotion_name in results.emotion_name %}
+                        <td>{{ emotion_name }}</td>
+                        {% endfor %}
+                    </tr>
+<!-- 
+                    <tr>
+                        <td>Emotion Detection Score</td>
+                        {% for emotion_name_score in results.emotion_name_score %}
+                        <td>{{ emotion_name_score }}</td>
+                        {% endfor %}
+                    </tr> -->
 
-    {% if upload %}
-        <div>
-            <img src="/media/ml_output/process.jpg" alt="">
+                    <tr>
+                        <td>Gender</td>
+                        {% for gender_name in results.gender_name %}
+                        <td>{{ gender_name }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <!-- <tr>
+                        <td>Gender Detection Score</td>
+                        {% for gender_name_score in results.gender_name_score %}
+                        <td>{{ gender_name_score }}</td>
+                        {% endfor %}
+                    </tr> -->
+
+                    <tr>
+                        <td>Race</td>
+                        {% for race_name in results.race_name %}
+                        <td>{{ race_name }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <!-- <tr>
+                        <td>Race Detection Score</td>
+                        {% for race_name_score in results.race_name_score %}
+                        <td>{{ race_name_score }}</td>
+                        {% endfor %}
+                    </tr> -->
+
+                    <tr>
+                        <td>Age Range</td>
+                        {% for age_name in results.age_name %}
+                        <td>{{ age_name }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <!-- <tr>
+                        <td>Age Range Detection Score</td>
+                        {% for age_name_score in results.age_name_score %}
+                        <td>{{ age_name_score }}</td>
+                        {% endfor %}
+                    </tr> -->
+                </table>
+                {% endif %}
+            </div>
         </div>
-        <table>
-            <tr>
-                <td>Face</td>
-                {% for count in results.count %}
-                    <td>
-                        <img src="/media/ml_output/roi_{{count}}.jpg" alt="">
-                    </td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Face Detection Score</td>
-                {% for detect_score in results.face_detect_score %}
-                    <td>{{ detect_score }}</td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Emotion</td>
-                {% for emotion_name in results.emotion_name %}
-                    <td>{{ emotion_name }}</td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Emotion Detection Score</td>
-                {% for emotion_name_score in results.emotion_name_score %}
-                    <td>{{ emotion_name_score }}</td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Gender</td>
-                {% for gender_name in results.gender_name %}
-                    <td>{{ gender_name }}</td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Gender Detection Score</td>
-                {% for gender_name_score in results.gender_name_score %}
-                    <td>{{ gender_name_score }}</td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Race Name</td>
-                {% for race_name in results.race_name %}
-                    <td>{{ race_name }}</td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Race Detection Score</td>
-                {% for race_name_score in results.race_name_score %}
-                    <td>{{ race_name_score }}</td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Age Range</td>
-                {% for age_name in results.age_name %}
-                    <td>{{ age_name }}</td>
-                {% endfor %}
-            </tr>
-
-            <tr>
-                <td>Age Range Detection Score</td>
-                {% for age_name_score in results.age_name_score %}
-                    <td>{{ age_name_score }}</td>
-                {% endfor %}
-            </tr>
-        </table>
-    {% endif %}
+    </div>
 </body>
+
 </html>
