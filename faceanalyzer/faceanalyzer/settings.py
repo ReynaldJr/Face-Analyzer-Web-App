@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-)rpxr=&i$a%vqj2z#@q)$w&i^pp04g0pa11*n2tm7&alu9b5@$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['facelens.herokuapp.com','localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['facelens.herokuapp.com','localhost', '127.0.0.1', 'facelens-ffd238886345.herokuapp.com']
 
 
 # Application definition
