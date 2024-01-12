@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-)rpxr=&i$a%vqj2z#@q)$w&i^pp04g0pa11*n2tm7&alu9b5@$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['facelens.herokuapp.com']
 
 
 # Application definition
@@ -123,6 +123,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 # Media Files
 MEDIA_ROOT = MEDIA_DIR
