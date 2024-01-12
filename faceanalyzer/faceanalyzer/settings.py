@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-)rpxr=&i$a%vqj2z#@q)$w&i^pp04g0pa11*n2tm7&alu9b5@$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['facelens.herokuapp.com']
+ALLOWED_HOSTS = ['facelens.herokuapp.com','localhost', '127.0.0.1']
 
 
 # Application definition
@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'faceanalyzer.urls'
