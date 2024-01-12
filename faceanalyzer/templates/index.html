@@ -10,107 +10,94 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <title>Face Analyzer</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logo.svg' %}">
+    <title>FaceLens</title>
 </head>
 
-<body>
+<body class="body-dark">
     <nav class='navbar navbar-light'></nav>
+    <div class="bg-blob">
+        <div class="blob-1"></div>
+    </div>
     <div class="container">
-        <h1 class="text-center mb-4">Face Analyzer</h1>
+        <div class="top-container">
+            <h1 class="header-logo"><span class="logo-image">◆</span>Face<span class="logo-scan">Lens</span></h1>
+            <p>Gain meaningful insights from pictures of faces effortlessly through the lens of AI.</p>
+        </div>
 
-        <form action="#" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="input-group">
-                <label for="{{ form.image.id_for_label }}"></label>
-                {{ form.image }}
-                <input type="submit" value="Display Image" class="btn btn-outline-secondary">
-            </div>
-        </form>
+        <div class="form-container">
+            <form action="#" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="{{ form.image.id_for_label }}" class="label-picture"></label>
+                    {{ form.image }}
+                    <input type="submit" value="Analyze Image" class="main-button">
+                </div>
+            </form>
+        </div>
 
         {% if upload %}
-        <div class="row mt-4">
-            <div class="col">
-                <img src="/media/ml_output/process.jpg" class="img-fluid" alt="">
+        <div class="mt-4 display-container">
+            <div class="image-display">
+                <img src="/media/ml_output/process.jpg" class="img-fluid zoom" alt="">
             </div>
 
-            <div class="col">
-                <table class = "table table-hover">
+            <div class="table-display">
+                <table class="main-table">
                     <thead>
-                        <td>Face</td>
+                        <td class="td-header">Face</td>
                         {% for count in results.count %}
                         <td>
-                            <img src="/media/ml_output/roi_{{count}}.jpg" class="img-fluid" alt="">
+                            <img src="/media/ml_output/roi_{{count}}.jpg" class="table-picture" alt="">
                         </td>
                         {% endfor %}
                     </thead>
 
                     <tr>
-                        <td>Face Detection Score</td>
-                        {% for detect_score in results.face_detect_score %}
-                        <td>{{ detect_score }}</td>
-                        {% endfor %}
-                    </tr>
-
-                    <tr>
-                        <td>Emotion</td>
+                        <td class="td-header">Emotion</td>
                         {% for emotion_name in results.emotion_name %}
                         <td>{{ emotion_name }}</td>
                         {% endfor %}
                     </tr>
-<!-- 
-                    <tr>
-                        <td>Emotion Detection Score</td>
-                        {% for emotion_name_score in results.emotion_name_score %}
-                        <td>{{ emotion_name_score }}</td>
-                        {% endfor %}
-                    </tr> -->
 
                     <tr>
-                        <td>Gender</td>
+                        <td class="td-header">Gender</td>
                         {% for gender_name in results.gender_name %}
                         <td>{{ gender_name }}</td>
                         {% endfor %}
                     </tr>
 
-                    <!-- <tr>
-                        <td>Gender Detection Score</td>
-                        {% for gender_name_score in results.gender_name_score %}
-                        <td>{{ gender_name_score }}</td>
-                        {% endfor %}
-                    </tr> -->
-
                     <tr>
-                        <td>Race</td>
+                        <td class="td-header">Race</td>
                         {% for race_name in results.race_name %}
                         <td>{{ race_name }}</td>
                         {% endfor %}
                     </tr>
 
-                    <!-- <tr>
-                        <td>Race Detection Score</td>
-                        {% for race_name_score in results.race_name_score %}
-                        <td>{{ race_name_score }}</td>
-                        {% endfor %}
-                    </tr> -->
-
                     <tr>
-                        <td>Age Range</td>
+                        <td class="td-header">Age Range</td>
                         {% for age_name in results.age_name %}
-                        <td>{{ age_name }}</td>
+                        <td>{{ age_name }} Yrs. Old</td>
                         {% endfor %}
                     </tr>
-
-                    <!-- <tr>
-                        <td>Age Range Detection Score</td>
-                        {% for age_name_score in results.age_name_score %}
-                        <td>{{ age_name_score }}</td>
-                        {% endfor %}
-                    </tr> -->
                 </table>
                 {% endif %}
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="blob-2"></div>
+        <div class="container">
+            <div class="footer-line">
+                <p>Reynald Jr. All rights reserved © 2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/medium-zoom.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 
 </html>

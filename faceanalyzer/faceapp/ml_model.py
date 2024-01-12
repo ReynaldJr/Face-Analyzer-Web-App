@@ -55,7 +55,7 @@ def face_recognizer_pipeline_model(img_path):
                 box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
                 startx, starty, endx, endy = box.astype(int)
 
-                cv2.rectangle(image, (startx, starty), (endx, endy), (255,199,107))  # Increase line thickness for visibility
+                cv2.rectangle(image, (startx, starty), (endx, endy), (169,182,9))  # Increase line thickness for visibility
 
                 # Extracting Features
                 face_roi = img[starty:endy, startx:endx]
@@ -71,28 +71,28 @@ def face_recognizer_pipeline_model(img_path):
                 emotion_predict_score = emotion_recognition_model.predict_proba(vectors).max()
 
                 emotion_text = '{} : {:.0f}%'.format(emotion_predict.capitalize(),100*emotion_predict_score)
-                cv2.putText(image,emotion_text,(startx,endy+30),cv2.FONT_HERSHEY_PLAIN,1.3,(255,199,107),2)
+                cv2.putText(image,emotion_text,(startx,endy+30),cv2.FONT_HERSHEY_PLAIN,1.3,(169,182,9),2)
 
                 # Gender
                 gender_predict = gender_recognition_model.predict(vectors)[0]
                 gender_predict_score = gender_recognition_model.predict_proba(vectors).max()
 
                 gender_text = '{} : {:.0f}%'.format(gender_predict,100*gender_predict_score)
-                cv2.putText(image,gender_text,(startx,endy+65),cv2.FONT_HERSHEY_PLAIN,1.3,(255,199,107),2)
+                cv2.putText(image,gender_text,(startx,endy+65),cv2.FONT_HERSHEY_PLAIN,1.3,(169,182,9),2)
 
                 # Race
                 race_predict = race_recognition_model.predict(vectors)[0]
                 race_predict_score = race_recognition_model.predict_proba(vectors).max()
 
                 race_text = '{} : {:.0f}%'.format(race_predict,100*race_predict_score)
-                cv2.putText(image,race_text,(startx,endy+95),cv2.FONT_HERSHEY_PLAIN,1.3,(255,199,107),2)
+                cv2.putText(image,race_text,(startx,endy+95),cv2.FONT_HERSHEY_PLAIN,1.3,(169,182,9),2)
 
                 # Age
                 age_predict = age_recognition_model.predict(vectors)[0]
                 age_predict_score = age_recognition_model.predict_proba(vectors).max()
 
                 age_text = '{} : {:.0f}%'.format(age_predict,100*age_predict_score)
-                cv2.putText(image,age_text,(startx,endy+125),cv2.FONT_HERSHEY_PLAIN,1.3,(255,199,107),2)
+                cv2.putText(image,age_text,(startx,endy+125),cv2.FONT_HERSHEY_PLAIN,1.3,(169,182,9),2)
                 
                 cv2.imwrite(os.path.join(settings.MEDIA_ROOT,'ml_output/process.jpg'), image)
                 cv2.imwrite(os.path.join(settings.MEDIA_ROOT,'ml_output/roi_{}.jpg'.format(count)), face_roi)
